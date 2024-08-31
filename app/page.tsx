@@ -59,12 +59,12 @@ export default function Home() {
         className=" absolute bottom-0 left-0 z-10 w-screen transition-transform h-screen flex flex-col"
         style={{ transform: `translateY(${100 - mudHeight}vh)` }}
       >
-        <div className="flex-shrink-0 text-stone-800 translate-y-2">
+        <div className="flex-shrink-0 text-mud-500 translate-y-2">
           <Wave />
         </div>
-        <div className="flex-1 bg-gradient-to-b from-stone-800 to-stone-950"></div>
+        <div className="flex-1 bg-gradient-to-b from-mud-500 to-mud-900"></div>
       </div>
-      {mudHeight > 50 && clickAge > 5000 && (
+      {mudHeight > 60 && clickAge > 5000 && (
         <div className="absolute bottom-0 text-white z-50 w-screen py-8 flex flex-col items-center space-y-12">
           <QRCode />
           <p className="text-center text-3xl">
