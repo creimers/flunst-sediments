@@ -31,3 +31,42 @@ body {
     text-wrap: balance;
   }
 }
+
+@keyframes rocking-crab {
+  0%, 100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.rocking-crab {
+  animation: rocking-crab 1s ease-in-out infinite;
+}
+
+/* @keyframes swayingWaterLily {
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  } 
+} */
+
+@keyframes swayingWaterLily {
+  0%, 100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+.swaying-water-lily {
+  animation: swayingWaterLily 10s ease-in-out infinite;
+  transform-origin: center bottom;
+}
