@@ -16,7 +16,7 @@ export default function Dig() {
           Gib alles!
         </div>
       )}
-      {digCount > 1 && digCount < 5 && (
+      {digCount > 0 && digCount <= 5 && (
         <div className="my-auto text-center text-4xl font-black">
           Immer weiter!
         </div>
