@@ -70,3 +70,21 @@ body {
   animation: swayingWaterLily 10s ease-in-out infinite;
   transform-origin: center bottom;
 }
+
+/* @keyframes light1 {
+  0%, 100% {
+    transform: translateX(-10vw);
+  }
+  50% {
+    transform: translateX(10vw);
+  }
+}
+
+#light-1 {
+  animation: light1 100s ease-in-out infinite;
+}
+
+#light-2 {
+  animation: light1 75s ease-in-out infinite;
+  animation-delay: 2s;
+} */

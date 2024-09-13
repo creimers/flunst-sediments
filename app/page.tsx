@@ -40,7 +40,11 @@ export default function Home() {
 
   function handleClick() {
     if (MUD_HEIGHT - clickCount > 10) {
-      setClickCount(clickCount + 2);
+      if (clickCount <= 0) {
+        setClickCount(clickCount + 5);
+      } else {
+        setClickCount(clickCount + 2);
+      }
     }
     setMostRecentClick(new Date());
     setClickAge(0);
@@ -55,9 +59,16 @@ export default function Home() {
     >
       <div className="w-24 h-24 absolute left-2/3 top-1/2 rounded-full bg-white/10 blur-sm"></div>
       <div className="w-12 h-12 absolute left-3/4 top-2/3 rounded-full bg-white/10 blur-sm"></div>
-      <div className="h-screen w-12 bg-gradient-to-b from-white/50 via-transparent blur-xl absolute left-1/2 rotate-2"></div>
-      <div className="h-screen w-4 bg-gradient-to-b from-white/70 via-white/20 blur-lg absolute left-1/4 -rotate-3"></div>
-      <div className="flex justify-around absolute bottom-14 left-0 w-screen z-20">
+      <div className="w-12 h-12 absolute left-3/4 top-1/3 rounded-full bg-white/10 blur-sm"></div>
+      <div
+        className="h-screen w-12 bg-gradient-to-b from-white/50 via-transparent blur-xl absolute left-1/2 rotate-2"
+        id="light-2"
+      ></div>
+      <div
+        className="h-screen w-4 bg-gradient-to-b from-white/70 via-white/20 blur-lg absolute left-1/4 -rotate-3"
+        id="light-1"
+      ></div>
+      <div className="flex justify-around absolute bottom-14 2xl:bottom-20 left-0 w-screen z-20">
         <div className="max-w-[20vw] w-full rocking-crab">
           <Crab />
         </div>
@@ -94,9 +105,9 @@ export default function Home() {
         <div className="flex-1 bg-gradient-to-b from-mud-500 to-mud-900"></div>
       </div>
       {mudHeight > 60 && clickAge > 5000 && (
-        <div className="absolute bottom-0 text-white z-50 w-screen py-8 flex flex-col items-center space-y-12">
+        <div className="absolute bottom-0 text-white z-50 w-screen py-12 2xl:py-20 flex flex-col items-center space-y-12 2xl:space-y-20">
           <QRCode />
-          <p className="text-center text-3xl">
+          <p className="text-center text-3xl 2xl:text-5xl">
             Scanne den QR-Code und hilf mit, den Schlick auszubaggern!
           </p>
         </div>
