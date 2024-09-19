@@ -1,14 +1,37 @@
 "use client";
 
 import * as React from "react";
+import { useSearchParams } from "next/navigation";
+
+import { io } from "socket.io-client";
+
+const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL!); // Adjust to your server's URL
 
 export default function Dig() {
   const [digCount, setDigCount] = React.useState(0);
 
+  const searchParams = useSearchParams();
+  const uuid = searchParams.get("uuid");
+
   function doDig() {
     setDigCount(digCount + 1);
-    fetch("/api/dig", { method: "POST" });
+    // fetch("/api/dig", { method: "POST" });
+    if (uuid) {
+      socket.emit("button-press", uuid);
+    }
   }
+
+  React.useEffect(() => {
+    if (uuid) {
+      // Join the play room
+      socket.emit("play-join", uuid);
+    }
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [uuid]);
+
   return (
     <div className="bg-white h-[100dvh] p-8 flex flex-col text-black select-none">
       <div className="flex-1">

@@ -1,33 +1,48 @@
 "use client";
+
 import * as React from "react";
-import { useChannel, useConnectionStateListener } from "ably/react";
+import { io } from "socket.io-client";
+import { v4 as uuidv4 } from "uuid";
+// import { useChannel, useConnectionStateListener } from "ably/react";
+// import { QRCimport {QRCodeSVG} from 'qrcode.react';ode } from "qrcode.react";
+import { QRCodeSVG } from "qrcode.react";
 
 import { useInterval } from "react-use";
-import { ABLY_CHANEL_NAME } from "@/lib/constants";
-import QRCode from "@/components/qr-code";
+// import { ABLY_CHANEL_NAME } from "@/lib/constants";
+// import QRCode from "@/components/qr-code";
 import Wave from "@/components/wave";
 import Crab from "@/components/crab";
 import Lilly from "@/components/lilly";
 
+const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL!); // Adjust to your server's URL
+
 const MUD_HEIGHT = 90;
 
 export default function Home() {
+  const [uuid, setUuid] = React.useState<string>(uuidv4());
+  const [link, setLink] = React.useState("");
   const [clickCount, setClickCount] = React.useState(0);
+  const clickCountRef = React.useRef<number>(0);
   const [mostRecentClick, setMostRecentClick] = React.useState<Date | null>(
     null
   );
   const [clickAge, setClickAge] = React.useState(100000);
 
-  useConnectionStateListener("connected", () => {
-    console.log("Connected to Ably!");
-  });
+  React.useEffect(() => {
+    const link = `${window.location}dig?uuid=${uuid}`;
+    setLink(link);
+  }, []);
 
-  // Create a channel called 'get-started' and subscribe to all messages with the name 'first' using the useChannel hook
-  const { channel } = useChannel(ABLY_CHANEL_NAME, "first", (message) => {
-    // setMessages(previousMessages => [...previousMessages, message]);
-    // console.log("Received message:", message);
-    handleClick();
-  });
+  // useConnectionStateListener("connected", () => {
+  //   console.log("Connected to Ably!");
+  // });
+
+  // // Create a channel called 'get-started' and subscribe to all messages with the name 'first' using the useChannel hook
+  // const { channel } = useChannel(ABLY_CHANEL_NAME, "first", (message) => {
+  //   // setMessages(previousMessages => [...previousMessages, message]);
+  //   // console.log("Received message:", message);
+  //   handleClick();
+  // });
 
   useInterval(() => {
     if (clickCount > 0) {
@@ -38,19 +53,46 @@ export default function Home() {
     }
   }, 1000);
 
+  const mudHeight = MUD_HEIGHT - clickCount;
+
   function handleClick() {
-    if (MUD_HEIGHT - clickCount > 10) {
-      if (clickCount <= 0) {
-        setClickCount(clickCount + 5);
-      } else {
-        setClickCount(clickCount + 2);
-      }
+    if (mudHeight > 10) {
+      setClickCount((c) => {
+        if (c < 80) {
+          const newC = c <= 0 ? c + 5 : c + 2;
+          return newC;
+        }
+        return c;
+      });
     }
     setMostRecentClick(new Date());
     setClickAge(0);
   }
 
-  const mudHeight = MUD_HEIGHT - clickCount;
+  // const handleClick = React.useCallback(() => {
+  //   // console.log("click", { clickCount, MUD_HEIGHT });
+  //   if (mudHeight > 10) {
+  //     setClickCount((c) => {
+  //       const newC = c <= 0 ? c + 5 : c + 2;
+  //       return newC;
+  //     });
+  //   }
+  //   setMostRecentClick(new Date());
+  //   setClickAge(0);
+  // }, [mudHeight]);
+
+  React.useEffect(() => {
+    // Join the game room
+    console.log("Joining game room", uuid);
+    socket.emit("game-join", uuid);
+
+    // Listen for button presses from the play page
+    socket.on("button-pressed", handleClick);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [uuid]);
 
   return (
     <div
@@ -106,7 +148,15 @@ export default function Home() {
       </div>
       {mudHeight > 60 && clickAge > 5000 && (
         <div className="absolute bottom-0 text-white z-50 w-screen py-12 2xl:py-20 flex flex-col items-center space-y-12 2xl:space-y-20">
-          <QRCode />
+          {/* <QRCode /> */}
+          {link && (
+            <QRCodeSVG
+              value={link}
+              bgColor="transparent"
+              fgColor="white"
+              size={256}
+            />
+          )}
           <p className="text-center text-3xl 2xl:text-5xl">
             Scanne den QR-Code und hilf mit, den Schlick auszubaggern!
           </p>
