@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 
 const socket = io(process.env.NEXT_PUBLIC_SOCKET_IO_URL!); // Adjust to your server's URL
 
-export default function Dig() {
+function Dig() {
   const [digCount, setDigCount] = React.useState(0);
 
   const searchParams = useSearchParams();
@@ -15,7 +15,6 @@ export default function Dig() {
 
   function doDig() {
     setDigCount(digCount + 1);
-    // fetch("/api/dig", { method: "POST" });
     if (uuid) {
       socket.emit("button-press", uuid);
     }
@@ -67,5 +66,13 @@ export default function Dig() {
         BAGGERN
       </button>
     </div>
+  );
+}
+
+export default function DigPage() {
+  return (
+    <React.Suspense>
+      <Dig />
+    </React.Suspense>
   );
 }
