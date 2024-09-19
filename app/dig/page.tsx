@@ -34,8 +34,13 @@ function Dig() {
   return (
     <div className="bg-white h-[100dvh] p-8 flex flex-col text-black select-none">
       <div className="flex-1">
-        {digCount > 7 && (
+        {digCount > 10 && (
           <div className="my-12 text-center text-8xl font-black uppercase space-y-3">
+            Es hört nie auf...
+          </div>
+        )}
+        {digCount > 7 && digCount <= 10 && (
+          <div className="my-12 text-center text-7xl font-black uppercase space-y-3">
             <div>Gib</div> <div>alles</div>
             <div>!!</div>
           </div>
