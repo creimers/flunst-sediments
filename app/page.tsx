@@ -147,7 +147,7 @@ export default function Home() {
         <div className="flex-1 bg-gradient-to-b from-mud-500 to-mud-900"></div>
       </div>
       {mudHeight > 60 && clickAge > 5000 && (
-        <div className="absolute bottom-12 text-white z-50 w-screen py-12 2xl:py-20 flex flex-col items-center space-y-12 2xl:space-y-20">
+        <div className="absolute bottom-[25vh] text-white z-50 w-screen py-12 2xl:py-20 flex flex-col items-center space-y-12 2xl:space-y-20">
           {/* <QRCode /> */}
           {link && (
             <QRCodeSVG
