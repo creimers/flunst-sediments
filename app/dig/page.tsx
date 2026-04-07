@@ -68,7 +68,7 @@ function Dig() {
         onClick={doDig}
         className="bg-yellow-300 text-black py-4 active:scale-95 font-semibold text-2xl"
       >
-        BAGGERN
+        <span className="select-none">BAGGERN</span>
       </button>
     </div>
   );
