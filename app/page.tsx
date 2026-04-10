@@ -46,7 +46,7 @@ export default function Home() {
 
   useInterval(() => {
     if (clickCount > 0) {
-      setClickCount(clickCount - 2);
+      setClickCount(clickCount - 1);
     }
     if (mostRecentClick) {
       setClickAge(new Date().getTime() - mostRecentClick!.getTime());
@@ -59,7 +59,7 @@ export default function Home() {
     if (mudHeight > 10) {
       setClickCount((c) => {
         if (c < 80) {
-          const newC = c <= 0 ? c + 5 : c + 2;
+          const newC = c <= 0 ? c + 8 : c + 4;
           return newC;
         }
         return c;

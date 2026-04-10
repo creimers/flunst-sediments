@@ -35,29 +35,29 @@ function Dig() {
     <div className="bg-white h-[100dvh] p-8 flex flex-col text-black select-none">
       <div className="flex-1">
         {digCount > 10 && (
-          <div className="my-12 text-center text-8xl font-black uppercase space-y-3">
+          <div className="my-12 text-center text-8xl font-black uppercase space-y-3 select-none">
             Es hört nie auf...
           </div>
         )}
         {digCount > 7 && digCount <= 10 && (
-          <div className="my-12 text-center text-7xl font-black uppercase space-y-3">
+          <div className="my-12 text-center text-7xl font-black uppercase space-y-3 select-none">
             <div>Gib</div> <div>alles</div>
             <div>!!</div>
           </div>
         )}
         {digCount > 0 && digCount <= 7 && (
-          <div className="my-12 text-center text-4xl font-black">
+          <div className="my-12 text-center text-4xl font-black select-none">
             Immer weiter!
           </div>
         )}
         {digCount > 3 && digCount <= 7 && (
-          <div className="my-12 text-center text-6xl font-black space-y-3">
+          <div className="my-12 text-center text-6xl font-black space-y-3 select-none">
             <div>Baggern!</div> <div>Baggern!</div> <div>Baggern!</div>
           </div>
         )}
       </div>
       {digCount === 0 && (
-        <div className="animate-bounce space-y-4 py-4">
+        <div className="animate-bounce space-y-4 py-4 select-none">
           <div className="text-center">
             Klicke hier, um den Schlick wegzubaggern.
           </div>
