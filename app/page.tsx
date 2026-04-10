@@ -46,12 +46,12 @@ export default function Home() {
 
   useInterval(() => {
     if (clickCount > 0) {
-      setClickCount(clickCount - 1);
+      setClickCount(clickCount - 0.6);
     }
     if (mostRecentClick) {
       setClickAge(new Date().getTime() - mostRecentClick!.getTime());
     }
-  }, 1000);
+  }, 200);
 
   const mudHeight = MUD_HEIGHT - clickCount;
 
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
       </div>
       <div
-        className=" absolute bottom-0 left-0 z-30 w-screen transition-transform h-screen flex flex-col"
+        className=" absolute bottom-0 left-0 z-30 w-screen transition-transform duration-200 ease-linear h-screen flex flex-col"
         style={{ transform: `translateY(${100 - mudHeight}vh)` }}
       >
         <div className="flex-shrink-0 text-mud-500 translate-y-2">
@@ -147,7 +147,7 @@ export default function Home() {
         <div className="flex-1 bg-gradient-to-b from-mud-500 to-mud-900"></div>
       </div>
       {mudHeight > 60 && clickAge > 5000 && (
-        <div className="absolute bottom-[25vh] text-white z-50 w-screen py-12 2xl:py-20 flex flex-col items-center space-y-12 2xl:space-y-20">
+        <div className="absolute bottom-[20vh] text-white z-50 w-screen py-12 2xl:py-20 flex flex-col items-center space-y-12 2xl:space-y-20">
           {/* <QRCode /> */}
           {link && (
             <QRCodeSVG
